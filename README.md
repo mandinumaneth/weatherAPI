@@ -20,21 +20,23 @@ A weather application with Auth0 authentication, displaying real-time weather da
 
 ---
 
-## � Screenshots
+## Screenshots
 
 ### Login Page
 
 ![Login Page](screenshots/login-page.png)
-_Secure Auth0 authentication with MFA support_
 
 ### Home Page - Weather Dashboard
 
 ![Weather Dashboard](screenshots/home-page.png)
-_Real-time weather data for multiple cities with responsive grid layout_
+
+### Weather Details Modal
+
+![Weather Details](screenshots/detailed-modal.png)
 
 ---
 
-## �🚀 Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
