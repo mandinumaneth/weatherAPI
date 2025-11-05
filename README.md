@@ -1,6 +1,6 @@
 # Weather App - Secure Full-Stack Application
 
-A production-ready weather application with Auth0 authentication, displaying real-time weather data for multiple cities with intelligent caching.
+A weather application with Auth0 authentication, displaying real-time weather data for multiple cities with intelligent caching.
 
 ---
 
