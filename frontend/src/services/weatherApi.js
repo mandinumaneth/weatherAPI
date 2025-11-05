@@ -13,13 +13,14 @@ function url(path) {
   return BACKEND_BASE ? `${BACKEND_BASE}${path}` : path;
 }
 
-export async function getCities() {
-  const res = await fetch(url("/api/weather/cities"));
+export async function getCities(token) {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const res = await fetch(url("/api/weather/cities"), { headers });
   if (!res.ok) throw new Error("Failed to load cities");
   return res.json();
 }
 
-export async function getWeather(cityId) {
+export async function getWeather(cityId, token) {
   const key = `weather_${cityId}`;
   try {
     const cached = sessionStorage.getItem(key);
@@ -35,7 +36,8 @@ export async function getWeather(cityId) {
     }
   }
 
-  const res = await fetch(url(`/api/weather/${cityId}`));
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const res = await fetch(url(`/api/weather/${cityId}`), { headers });
   if (!res.ok) throw new Error("Failed to load weather for " + cityId);
   const data = await res.json();
   try {

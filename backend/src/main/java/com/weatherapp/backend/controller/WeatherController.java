@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/weather")
-@CrossOrigin(origins = "*") // allow your React frontend to call it
+@CrossOrigin(origins = "*")
 public class WeatherController {
 
     private static final Logger log = LoggerFactory.getLogger(WeatherController.class);

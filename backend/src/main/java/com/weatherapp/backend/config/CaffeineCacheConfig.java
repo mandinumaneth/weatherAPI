@@ -19,7 +19,7 @@ public class CaffeineCacheConfig {
         cacheManager.setCaffeine(Caffeine.newBuilder()
                 .expireAfterWrite(5, TimeUnit.MINUTES) // 5-minute expiration
                 .maximumSize(1000)
-                .recordStats()); // Enable statistics
+                .recordStats()); 
 
         System.out.println("✅ Caffeine Cache configured with 5-minute TTL");
         return cacheManager;

@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import WeatherCard from "./components/WeatherCard";
 import WeatherDetailModal from "./components/WeatherDetailModal";
+import LoginButton from "./components/LoginButton";
+import LogoutButton from "./components/LogoutButton";
 import { getCities, getWeather } from "./services/weatherApi";
 
 export default function App() {
+  const {
+    isLoading: authLoading,
+    isAuthenticated,
+    getAccessTokenSilently,
+  } = useAuth0();
   const [cityIds, setCityIds] = useState([]);
   const [weathers, setWeathers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,17 +22,28 @@ export default function App() {
   const [selectedWeather, setSelectedWeather] = useState(null);
 
   useEffect(() => {
+    if (!isAuthenticated || authLoading) {
+      setLoading(false);
+      return;
+    }
+
     let mounted = true;
     async function load() {
       setLoading(true);
       try {
-        const ids = await getCities();
+        // Get access token
+        const token = await getAccessTokenSilently();
+
+        const ids = await getCities(token);
         if (!mounted) return;
         setCityIds(ids || []);
 
         // fetch weather for each city in parallel but limit slightly by mapping
         const promises = (ids || []).map((id) =>
-          getWeather(id).catch((e) => ({ _error: true, message: e.message }))
+          getWeather(id, token).catch((e) => ({
+            _error: true,
+            message: e.message,
+          }))
         );
         const results = await Promise.all(promises);
         if (!mounted) return;
@@ -45,7 +64,45 @@ export default function App() {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [isAuthenticated, authLoading, getAccessTokenSilently]);
+
+  // Show loading screen while Auth0 is initializing
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-purple-900">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  // Show login screen if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div
+        className="min-h-screen bg-center bg-fixed relative flex flex-col items-center justify-center"
+        style={{
+          backgroundImage: "url('/background.png')",
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl text-center max-w-md">
+          <div className="flex flex-col items-center mb-6">
+            <img
+              src="/logo.png"
+              alt="Weather App Logo"
+              className="w-20 h-20 object-contain mb-4 filter drop-shadow-2xl"
+            />
+            <h1 className="text-4xl font-bold text-white">Weather App</h1>
+          </div>
+          <p className="text-white/80 mb-8">
+            Please log in to view weather information
+          </p>
+          <LoginButton />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -57,9 +114,11 @@ export default function App() {
       }}
     >
       <div className="relative z-10 flex flex-col min-h-screen">
-        <Header lastUpdated={lastUpdated} />
+        <Header lastUpdated={lastUpdated}>
+          <LogoutButton />
+        </Header>
 
-        <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8 flex-grow">
+        <main className="container mx-auto max-w-7xl px-3 sm:px-4 py-4 sm:py-6 md:py-8 flex-grow">
           {loading && (
             <div className="text-center py-12 sm:py-16 md:py-20 text-white text-base sm:text-lg">
               Loading weather data…
