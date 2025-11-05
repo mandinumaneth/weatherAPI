@@ -16,6 +16,7 @@ A production-ready weather application with Auth0 authentication, displaying rea
 - Backend: Spring Boot 3.5.7, Java 21, Spring Security, OAuth2, Caffeine Cache
 - Frontend: React 19, Vite, Auth0 React SDK, Tailwind CSS
 - Security: Auth0 OAuth2, JWT tokens, Email MFA
+- UI: Responsive design based on Weather App.psd (assets extracted from PSD layers)
 
 ---
 
@@ -131,8 +132,19 @@ weatherAPI/
     │   ├── services/             # API client
     │   ├── App.jsx               # Main component
     │   └── main.jsx              # Auth0 setup
-    └── public/                   # Static assets
+    └── public/                   # Static assets (logo, background extracted from PSD)
+        ├── logo.png              # App logo from Weather App.psd
+        └── background.png        # Background image from PSD layers
 ```
+
+## 🎨 UI Design
+
+- **Based on**: Weather App.psd design file provided in assignment
+- **Assets Extracted**:
+  - Logo and icons from PSD layers
+  - Background images and effects
+  - Colors
+- **Framework**: Tailwind CSS for responsive styling
 
 ---
 
@@ -142,7 +154,7 @@ weatherAPI/
 
 ✅ Extracts city codes from JSON  
 ✅ Fetches weather from OpenWeatherMap API  
-✅ Displays data with responsive UI  
+✅ **Responsive UI based on provided PSD design**  
 ✅ 5-minute intelligent caching (reduces API calls by 95%)  
 ✅ **Dynamic city list** - Add cities to `cities.json` without code changes ([See guide](HOW_TO_ADD_CITIES.md))
 
@@ -261,4 +273,5 @@ openweathermap.api.url=https://api.openweathermap.org/data/2.5/weather
 const domain = "your-tenant.us.auth0.com";
 const clientId = "your_client_id";
 const audience = "https://weatherapp-api";
+
 ```
