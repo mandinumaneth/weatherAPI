@@ -20,7 +20,21 @@ A weather application with Auth0 authentication, displaying real-time weather da
 
 ---
 
-## 🚀 Quick Start
+## � Screenshots
+
+### Login Page
+
+![Login Page](screenshots/login-page.png)
+_Secure Auth0 authentication with MFA support_
+
+### Home Page - Weather Dashboard
+
+![Weather Dashboard](screenshots/home-page.png)
+_Real-time weather data for multiple cities with responsive grid layout_
+
+---
+
+## �🚀 Quick Start
 
 ### Prerequisites
 
@@ -273,5 +287,7 @@ openweathermap.api.url=https://api.openweathermap.org/data/2.5/weather
 const domain = "your-tenant.us.auth0.com";
 const clientId = "your_client_id";
 const audience = "https://weatherapp-api";
+
+```
 
 ```
