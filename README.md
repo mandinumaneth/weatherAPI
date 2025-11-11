@@ -6,10 +6,6 @@ A weather application with Auth0 authentication, displaying real-time weather da
 
 ## 🎯 Overview
 
-**Live Demo Credentials:**
-
-- Email: `careers@fidenz.com`
-- Password: `Pass#fidenz`
 
 **Tech Stack:**
 
