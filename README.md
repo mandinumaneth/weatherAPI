@@ -9,7 +9,7 @@ A weather application with Auth0 authentication, displaying real-time weather da
 
 **Tech Stack:**
 
-- Backend: Spring Boot, OAuth2, Caffeine Cache
+- Backend: Spring Boot, Caffeine Cache
 - Frontend: React, Tailwind CSS
 - Security: Auth0 OAuth2, JWT tokens
 - UI: Responsive design based on Weather App.psd (assets extracted from PSD layers)
